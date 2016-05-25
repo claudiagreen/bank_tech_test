@@ -22,9 +22,9 @@ describe Account do
 
   describe '#withdraw' do
 
-  before(:each) do
-    account.withdraw(500)
-  end
+    before(:each) do
+      account.withdraw(500)
+    end
 
     it 'creates a transaction with negative integer as amount' do
       expect(transaction_klass).to have_received(:new).with(-500, -500)
@@ -32,6 +32,26 @@ describe Account do
 
     it 'subtract from the balance when withdrawal is made' do
      expect(account.balance).to eq -500
+    end
+
+   it 'saves the transaction history in the array' do
+     last_transaction = account.history.last
+     expect(last_transaction).to eq transaction
+   end
+  end
+
+  describe '#deposit' do
+
+    before(:each) do
+      account.deposit(500)
+    end
+
+    it 'creates a transaction with positive integer as amount' do
+      expect(transaction_klass).to have_received(:new).with(500, 500)
+    end
+
+    it 'adds to the balance when deposit is made' do
+     expect(account.balance).to eq 500
     end
 
    it 'saves the transaction history in the array' do

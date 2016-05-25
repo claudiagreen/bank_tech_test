@@ -13,6 +13,11 @@ class Account
     save_transaction_history(-amount, @balance)
   end
 
+  def deposit(amount)
+    update_balance(amount)
+    save_transaction_history(amount, @balance)
+  end
+
 
 
 
